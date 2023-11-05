@@ -1,0 +1,5 @@
+{
+    "require": {
+        "vonage/vonage-laravel": "^1.0"
+    }
+}
