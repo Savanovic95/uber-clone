@@ -13,12 +13,12 @@ const waitingOnVerification = ref(false);
 
 const router = useRouter();
 
-const formattedCredentials = computed(()=>{
+const getFormattedCredentials = ()=>{
     return{
       phone: credentials.phone.replaceAll(' ', '').replace('(', '').replace(')', ''),
       login_code: credentials.login_code
     }
-})
+}
 
 onMounted(()=>{
     if (localStorage.getItem('token')){
@@ -29,7 +29,7 @@ onMounted(()=>{
 });
 
 const handleLogin = () => {
-  axios.post('http://127.0.0.1:8000/api/login', formattedCredentials)
+  axios.post('http://127.0.0.1:8000/api/login', getFormattedCredentials())
       .then((response) => {
         console.log(response.data);
         waitingOnVerification.value = true;
@@ -42,7 +42,7 @@ const handleLogin = () => {
 }
 
 const handleVerification = () => {
-  axios.post('http://127.0.0.1:8000/api/login/verify', formattedCredentials)
+  axios.post('http://127.0.0.1:8000/api/login/verify', getFormattedCredentials())
       .then((response) => {
         console.log(response.data);
         localStorage.setItem('token', response.data);
@@ -84,7 +84,7 @@ const handleVerification = () => {
         <div class="bg-white px-4 py-5 md:p-6">
           <div>
             <input type="text" v-maska data-maska="######" v-model="credentials.login_code" name="phone" id="phone"
-                   placeholder="(387) 65 101-010"
+                   placeholder="324568"
                    class="mt-1 block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-black focus:outline-none">
           </div>
         </div>
